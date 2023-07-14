@@ -1,0 +1,16 @@
+extends layout
+
+block content
+  .container
+    .row
+      .col
+        h1= title
+        a.btn.btn-primary(href="/create") Create a new NFT
+    .row
+      each nft in nfts
+        .col-md-3
+          .card
+            img.card-img-top(src=nft.imageURL)
+            .card-body
+              h5.card-title= nft.title
+              a.btn.btn-primary(href=`/nft/${nft._id}`) View Details
