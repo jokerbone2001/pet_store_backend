@@ -18,7 +18,8 @@ const UserSchema = new Schema({
   last_name: String,
   phone_number: String,
   delivery_address: AddressSchema,
-  image: String
+  image: String,
+  salt:String
 });
 
 module.exports = mongoose.model('users', UserSchema);
