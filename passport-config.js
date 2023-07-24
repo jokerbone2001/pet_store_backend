@@ -11,7 +11,8 @@ const opts = {
 module.exports = passport => {
   passport.use(
     new JwtStrategy(opts, (jwt_payload, done) => {
-      const user = Users.findOne({email_address:jwt_payload.email_address})
+      //console.log(jwt_payload);
+      Users.findOne({email_address:jwt_payload.email_address})
       .then(user => {
         return done (null,user || false);
       });

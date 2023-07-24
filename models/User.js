@@ -19,7 +19,6 @@ const UserSchema = new Schema({
   phone_number: String,
   delivery_address: AddressSchema,
   image: String,
-  salt:String
 });
 
 module.exports = mongoose.model('users', UserSchema);

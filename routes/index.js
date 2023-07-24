@@ -69,47 +69,8 @@ router.get('/user_json',(req,res,next)=>{
   });
 });
 
-// user sign up and login
-var user = {};
 
-function hash(string) {
-  return createHash('sha256').update(string).digest('hex');
-}
-function generateSalt(length) {
-  var result = '';
-  var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-  var charactersLength = characters.length;
-  for (var i = 0; i < length; i++) {
-    result += characters.charAt(Math.floor(Math.random() * charactersLength));
-  }
-  return result;
-} 
-router.post('/user/sign_up',(req, res, next)=>{
-  const {email_address, password} = req.body;
-  const salt =  generateSalt(Math.floor(Math.random() * 10 + 1)); 
-  const user = new User({
-    email_address,
-    salt,
-    password:hash(password+salt)
-  }
-  );
-  user.save()
-  res.send(`successfully sign up, ${user.salt} ${user.password}`);
-  
-});
 
-router.post('/user/log_in',(req, res, next)=>{
-
-  const {email_address, password} = req.body;
-  User.findOne({email_address})
-  .then(user => {
-    res.send(hash(password+user.salt) === user.password ? "Congratulations!!!, successfully log in" : "Sad!!!, password not correct");
-  })
-  .catch(err => {
-    console.log(err);
-    res.send("No such a user");
-  });
-});
 
 
 // // get nft json file
@@ -185,6 +146,48 @@ router.post('/user/log_in',(req, res, next)=>{
 //       console.log(err);
 //       next(err);
 //     });
+// });
+
+// user sign up and login
+// var user = {};
+
+// function hash(string) {
+//   return createHash('sha256').update(string).digest('hex');
+// }
+// function generateSalt(length) {
+//   var result = '';
+//   var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+//   var charactersLength = characters.length;
+//   for (var i = 0; i < length; i++) {
+//     result += characters.charAt(Math.floor(Math.random() * charactersLength));
+//   }
+//   return result;
+// } 
+// router.post('/user/sign_up',(req, res, next)=>{
+//   const {email_address, password} = req.body;
+//   const salt =  generateSalt(Math.floor(Math.random() * 10 + 1)); 
+//   const user = new User({
+//     email_address,
+//     salt,
+//     password:hash(password+salt)
+//   }
+//   );
+//   user.save()
+//   res.send(`successfully sign up, ${user.salt} ${user.password}`);
+  
+// });
+
+// router.post('/user/log_in',(req, res, next)=>{
+
+//   const {email_address, password} = req.body;
+//   User.findOne({email_address})
+//   .then(user => {
+//     res.send(hash(password+user.salt) === user.password ? "Congratulations!!!, successfully log in" : "Sad!!!, password not correct");
+//   })
+//   .catch(err => {
+//     console.log(err);
+//     res.send("No such a user");
+//   });
 // });
 
 module.exports = router;
