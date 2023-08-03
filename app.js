@@ -23,7 +23,7 @@ var app = express();
 // CORS access
 const cors = require('cors');
 app.use(cors({
-    origin: 'http://localhost:3000'
+    origin: 'https://pet.jokerbone.ca'
 }));
 
 // view engine setup
