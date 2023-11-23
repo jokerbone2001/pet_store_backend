@@ -6,7 +6,15 @@ var logger = require('morgan');
 const mongoose = require('mongoose');
 const passport = require('passport');
 require('./passport-config')(passport);
+require('dotenv').config();
 
+let mongoDBUrl;
+
+if (process.env.NODE_ENV === 'development') {
+  mongoDBUrl = process.env.DEV_DB_URL;
+} else if (process.env.NODE_ENV === 'production') {
+  mongoDBUrl = process.env.PROD_DB_URL;
+}
 
 const mongoDB = "mongodb+srv://jokerbone2001:xxh2001111@nft.redawfq.mongodb.net/Pet_Store";
 main().catch((err) => console.log(err));
@@ -23,7 +31,9 @@ var app = express();
 // CORS access
 const cors = require('cors');
 app.use(cors({
-    origin: 'https://pet.jokerbone.ca'
+    // origin: 'https://pet.jokerbone.ca'
+    origin: 'http://localhost:3000'
+
 }));
 
 // view engine setup
